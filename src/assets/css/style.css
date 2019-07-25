@@ -22,6 +22,12 @@
     width:100%;
 }
 .ivu-form{
-    width:50%;
-    margin: 0 auto
+    width:40%;
+    margin: 0 auto;
+}
+.ivu-form.ivu-form-label-right .ivu-form-item-label{
+    font-size: 1.2rem ;
+}
+.ivu-form.ivu-form-label-right .ivu-btn{
+    font-size: 1.2rem;
 }
