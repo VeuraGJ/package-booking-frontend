@@ -1,7 +1,7 @@
 <template>
     <Form :model="formOrder" :label-width="80">
         <FormItem label="运单号">
-            <Input v-model="formOrder.id" placeholder="运单号"></Input>
+            <Input v-model="formOrder.id" placeholder="运单号"/>
         </FormItem>
         <FormItem label="取件时间">
              <DatePicker v-model="formOrder.date" type="datetime" placeholder="预约时间"></DatePicker>
