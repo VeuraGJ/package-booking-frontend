@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import index from './components/index.vue'
+import packageList from './components/packageList.vue'
 import addOrder from './components/addOrder.vue'
 Vue.use(Router)
 
@@ -11,7 +12,12 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: index
+      component: index,
+      children:[{
+        path:'',
+        name:'packageList',
+        component: packageList
+      }]
     },
     {
       path: '/addOrder',

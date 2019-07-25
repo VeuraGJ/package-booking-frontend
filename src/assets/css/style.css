@@ -1,0 +1,23 @@
+#app{
+    height: 100%;
+    width:100%;
+    position: fixed;
+}
+.layout{
+    height: 100%;
+}
+.ivu-layout{
+    height: 100%;
+}
+.layout-logo{
+    float:left;
+    color:#fff;
+    font-size: 1.3rem;
+}
+.layout-nav{
+    float:right;
+}
+.ivu-menu-vertical .ivu-menu-item{
+    margin: 0;
+    width:100%;
+}

@@ -1,42 +1,43 @@
 <template>
-  <div class="index">
-    <h1>菜鸟驿站</h1>
-      <Layout>
-        <Header>
-             <Menu mode="horizontal" theme="dark">
-                    <MenuItem name="1-1" >
-                       <span  @click="activeKind='All'">All</span>
-                    </MenuItem>
-                    <MenuItem name="1-2">
-                        <span @click="activeKind='hadOrder'">已预约</span>
-                    </MenuItem>
-                    <MenuItem name="1-3">
-                        <span @click="activeKind='hadGot'">已取件</span>
-                    </MenuItem>
-                    <MenuItem name="1-4">
-                        <span @click="activeKind='notOrder'">未预约</span>
-                    </MenuItem>
-                    <MenuItem name="1-5">
-                        <span @click="addOrder()">+添加</span>
-                    </MenuItem>
-            </Menu>
-        </Header>
-            <Content><packageList :status="activeKind"></packageList></Content>
-    </Layout>
-  </div>
+  <div class="layout">
+        <Layout>
+            <Header>
+                <Menu mode="horizontal" theme="dark" active-name="1">
+                    <div class="layout-logo">菜鸟驿站</div>
+                </Menu>
+            </Header>
+            <Layout>
+                <Sider hide-trigger :style="{background: '#fff'}">
+                    <Menu active-name="1-1" theme="light" width="auto">
+                         <MenuItem name="1-1">
+                         <Icon type="ios-navigate"></Icon>
+                            首页
+                         </MenuItem>
+                        <MenuItem name="1-2"> 
+                        <Icon type="md-add"></Icon>
+                            添加运单</MenuItem>
+                        <MenuItem name="1-3">
+                        <Icon type="ios-clipboard-outline"></Icon>
+                        预约时间</MenuItem>
+                    </Menu>
+                </Sider>
+                <Layout :style="{padding: '0 24px 24px'}">
+                    <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
+                      <router-view></router-view>
+                    </Content>
+                </Layout>
+            </Layout>
+        </Layout>
+    </div>
 </template>
 
 <script>
-import packageList from './packageList'
 export default {
   name: 'HelloWorld',
   data(){
       return {
           activeKind:'All'
       }
-  },
-  components:{
-      packageList
   },
   methods: {
     addOrder(){

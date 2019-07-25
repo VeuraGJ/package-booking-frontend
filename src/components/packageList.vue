@@ -1,86 +1,102 @@
 <template>
-  <div class="content">
-    <table>
-        <thead>
-            <tr>
-                <td>运单号</td>
-                <td>收件人</td>
-                <td>电话</td>
-                <td>状态</td>
-                <td>预约时间</td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="eachpackage in packagesInfo" :key="eachpackage.id">
-                <td>{{eachpackage.id}}</td>
-                <td>{{eachpackage.cutomerName}}</td>
-                <td>{{eachpackage.telphoneNumber}}</td>
-                <td v-if="eachpackage.status === 0">已预约</td>
-                <td v-if="eachpackage.status === 1">已取件</td>
-                <td v-if="eachpackage.status === 2">未预约</td>
-                <td>{{eachpackage.orderTime}}</td>
-                <td>
-                    <Button  v-if ="eachpackage.status === 0 || eachpackage.status === 2" @click="confirmPackage(eachpackage.id)">确认收货</Button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-  </div>
+    <Table border :columns="columns7" :data="data6"></Table>
 </template>
-
 <script>
-
-export default {
-  name: 'content',
-  props:{
-      status:String
-  },
-  computed:{
-      packagesInfo(){
-          switch(this.status){
-              case 'hadOrder':
-                  return this.$store.state.orders.filter(eachpackage => eachpackage.status === 0)
-              case 'hadGot':
-                  return this.$store.state.orders.filter(eachpackage => eachpackage.status === 1)
-              case 'notOrder':
-                  return this.$store.state.orders.filter(eachpackage => eachpackage.status === 2)
-              default:
-                  return this.$store.state.orders
-          }
-      }
-  },
-  methods:{
-      confirmPackage(id){
-          this.$store.dispatch('updatePackage',id);
-      }
-  },
-  mounted:function(){
-    this.$store.dispatch('getPackageLists');
-  }
-} 
+    export default {
+        data () {
+            return {
+                columns7: [
+                    {
+                        title: '运单号',
+                        key: 'id',
+                    },
+                    {
+                        title: '收件人',
+                        key: 'cutomerName'
+                    },
+                    {
+                        title: '电话',
+                        key: 'telphoneNumber'
+                    },
+                    {
+                        title: '状态',
+                        key: 'status',
+                        filters: [
+                            {
+                                label: '未预约',
+                                value: 0
+                            },
+                            {
+                                label: '已预约',
+                                value: 1
+                            },
+                            {
+                                label: '已取件',
+                                value: 2
+                            }
+                            
+                        ],
+                        filterMultiple: false,
+                        filterMethod (value, row) {
+                            return row.status === value
+                        },
+                         render: (h, params) => {
+                            return h('div', [
+                                h('span', this.changeStatus(params.row.status))
+                            ]);
+                        }
+                    },
+                    {
+                        title: '预约时间',
+                        key: 'orderTime'
+                    },
+                    {
+                        title: 'Action',
+                        key: 'action',
+                        width: 150,
+                        align: 'center',
+                        render: (h, params) => {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'default',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '5px',
+                                        display : params.row.status === 2 ? 'none': 'inline-block'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.show(params.index)
+                                        }
+                                    }
+                                }, '确认收货')
+                    
+                            ]);
+                        }
+                    }
+                ],
+                data6: this.$store.state.orders
+            }
+        },
+        methods: {
+            show (index) {
+                this.$Modal.info({
+                    title: 'User Info',
+                    content: `Name：${this.data6[index].name}<br>Age：${this.data6[index].age}<br>Address：${this.data6[index].address}`
+                })
+            },
+            remove (index) {
+                this.data6.splice(index, 1);
+            },
+            changeStatus(status){
+                const statusType = ['未预约','已预约','已取件'];
+                return statusType[status];
+            }
+        },
+        mounted(){
+            this.$store.dispatch('getPackageLists')
+        }
+    }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-table{
-    margin: 0 auto;
-    width:80%;
-    border: 1px solid #cccccc;
-    padding:10px;
-}
-</style>
