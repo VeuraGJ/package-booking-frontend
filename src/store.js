@@ -17,6 +17,7 @@ export default new Vuex.Store({
     updateOrder(state,order){
       const oldOrder = state.orders.find(o => o.id == order.id);
       oldOrder.status = order.status;
+      oldOrder.orderTime = order.orderTime;
     }
   },
   actions: {
@@ -36,6 +37,16 @@ export default new Vuex.Store({
       .then(function (response) {
         console.log(response.data);
         commit('updateOrder',response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    },
+    reservePackage({commit},order){
+      axios.put('http://localhost:8090/packages/'+order.id+'?orderTime='+order.orderTime)
+      .then(function (response) {
+        console.log(response.data);
+        // commit('updateOrder',response.data);
       })
       .catch(function (error) {
         console.log(error);

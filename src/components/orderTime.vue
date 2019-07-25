@@ -1,14 +1,14 @@
 <template>
     <Form :model="formOrder" :label-width="80">
         <FormItem label="运单号">
-            <Input v-model="formOrder.id" placeholder="Enter something..."></Input>
+            <Input v-model="formOrder.id" placeholder="运单号"></Input>
         </FormItem>
         <FormItem label="取件时间">
-             <DatePicker type="datetime" placeholder="Select date and time"></DatePicker>
+             <DatePicker v-model="formOrder.date" type="datetime" placeholder="预约时间"></DatePicker>
         </FormItem>
         <FormItem>
-            <Button type="primary">Submit</Button>
-            <Button style="margin-left: 8px">Cancel</Button>
+            <Button type="primary" @click="reserveTime">预约</Button>
+            <Button style="margin-left: 8px">取消</Button>
         </FormItem>
     </Form>
 </template>
@@ -18,9 +18,17 @@
             return {
                 formOrder: {
                     id: '',
-                    date: '',
-                    time: ''
+                    date:''
                 }
+            }
+        },
+        methods:{
+            reserveTime(){
+                let order = {id : this.formOrder.id,orderTime: this.formatTime(this.formOrder.date)}
+                this.$store.dispatch('reservePackage',order)
+            },
+            formatTime(date){
+                return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
             }
         }
     }
