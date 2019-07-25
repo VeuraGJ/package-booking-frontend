@@ -1,54 +1,30 @@
 <template>
-  <div class="addOrder">
-      
-      <Layout>
-        <Header>
-             <h1>包裹入库</h1>
-        </Header>
-        <Content>
-        <Form :model="formItem" :label-width="80">
-            <FormItem label="运单单号">
-            <Input v-model="formItem.orderId" placeholder="Enter something..."/>
-            </FormItem>
-            <FormItem label="收件人">
-            <Input v-model="formItem.orderId" placeholder="Enter something..."/>
-            </FormItem>
-            <FormItem label="电话">
-            <Input v-model="formItem.orderId" placeholder="Enter something..."/>
-            </FormItem>
-            <FormItem>
+    <Form :model="formItem" :label-width="80">
+        <FormItem label="运单号：">
+            <Input v-model="formOrder.id" placeholder="Enter something..."></Input>
+        </FormItem>
+        <FormItem label="收件人：">
+            <Input v-model="formOrder.cutomerName" placeholder="Enter something..."></Input>
+        </FormItem>
+        <FormItem label="电话：">
+            <Input v-model="formOrder.telphoneNumber" placeholder="Enter something..."></Input>
+        </FormItem>
+        <FormItem>
             <Button type="primary">Submit</Button>
             <Button style="margin-left: 8px">Cancel</Button>
-            </FormItem>
-        </Form>
-        </Content>
-    </Layout>
-  </div>
+        </FormItem>
+    </Form>
 </template>
-
 <script>
-import packageList from './packageList'
-export default {
-  name: 'HelloWorld',
-  data () {
+    export default {
+        data () {
             return {
-                formItem: {
-                   
+                formOrder: {
+                    id: '',
+                    cutomerName: '',
+                    telphoneNumber: ''
                 }
             }
-  },
-  components:{
-      packageList
-  },
-  props: {
-    msg: String
-  }
-}
+        }
+    }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-h1{
-    color:#fff
-}
-</style>

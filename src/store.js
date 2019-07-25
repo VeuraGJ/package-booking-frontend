@@ -11,6 +11,9 @@ export default new Vuex.Store({
     setOrders(state,orders){
       state.orders.push(...orders)
     },
+    clearOrders(state){
+      state.orders.splice(0,state.orders.length);
+    },
     updateOrder(state,order){
       const oldOrder = state.orders.find(o => o.id == order.id);
       oldOrder.status = order.status;
@@ -21,6 +24,7 @@ export default new Vuex.Store({
       axios.get('http://localhost:8090/packages')
       .then(function (response) {
         console.log(response.data);
+        commit('clearOrders');
         commit('setOrders',response.data);
       })
       .catch(function (error) {

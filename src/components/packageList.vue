@@ -87,9 +87,6 @@
                     content: `Name：${this.data6[index].name}<br>Age：${this.data6[index].age}<br>Address：${this.data6[index].address}`
                 })
             },
-            remove (index) {
-                this.data6.splice(index, 1);
-            },
             changeStatus(status){
                 const statusType = ['未预约','已预约','已取件'];
                 return statusType[status];

@@ -8,17 +8,17 @@
             </Header>
             <Layout>
                 <Sider hide-trigger :style="{background: '#fff'}">
-                    <Menu active-name="1-1" theme="light" width="auto">
-                         <MenuItem name="1-1">
+                    <Menu active-name="packageList" theme="light" width="auto" @on-select="selectItem">
+                         <MenuItem name="packageList">
                          <Icon type="ios-navigate"></Icon>
                             首页
                          </MenuItem>
-                        <MenuItem name="1-2"> 
+                        <MenuItem name="addOrder" > 
                         <Icon type="md-add"></Icon>
                             添加运单</MenuItem>
-                        <MenuItem name="1-3">
+                        <MenuItem name="orderTime">
                         <Icon type="ios-clipboard-outline"></Icon>
-                        预约时间</MenuItem>
+                        预约取件</MenuItem>
                     </Menu>
                 </Sider>
                 <Layout :style="{padding: '0 24px 24px'}">
@@ -40,8 +40,8 @@ export default {
       }
   },
   methods: {
-    addOrder(){
-        this.$router.push('/addOrder');
+    selectItem(name){
+        this.$router.push({name:name});
     }
   }
 }

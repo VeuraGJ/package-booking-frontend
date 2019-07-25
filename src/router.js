@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import index from './components/index.vue'
 import packageList from './components/packageList.vue'
 import addOrder from './components/addOrder.vue'
+import orderTime from './components/orderTime.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -17,12 +18,18 @@ export default new Router({
         path:'',
         name:'packageList',
         component: packageList
-      }]
-    },
-    {
-      path: '/addOrder',
-      name: 'addOrder',
-      component: addOrder
+      },
+      {
+        path: '/addOrder',
+        name: 'addOrder',
+        component: addOrder
+      },
+      {
+        path: '/orderTime',
+        name: 'orderTime',
+        component: orderTime
+      }
+    ]
     },
     {
       path: '/about',
