@@ -1,17 +1,33 @@
 <template>
   <div class="index">
     <h1>菜鸟驿站</h1>
-    <button @click="activeKind='All'">All</button>
-    <button @click="activeKind='hadOrder'">已预约</button>
-    <button @click="activeKind='hadGot'">已取件</button>
-    <button @click="activeKind='notOrder'">未预约</button>
-    <button>+添加</button>
-    <content :status="activeKind"></content>
+      <Layout>
+        <Header>
+             <Menu mode="horizontal" theme="dark">
+                    <MenuItem name="1-1" >
+                       <span  @click="activeKind='All'">All</span>
+                    </MenuItem>
+                    <MenuItem name="1-2">
+                        <span @click="activeKind='hadOrder'">已预约</span>
+                    </MenuItem>
+                    <MenuItem name="1-3">
+                        <span @click="activeKind='hadGot'">已取件</span>
+                    </MenuItem>
+                    <MenuItem name="1-4">
+                        <span @click="activeKind='notOrder'">未预约</span>
+                    </MenuItem>
+                    <MenuItem name="1-5">
+                        <span @click="addOrder()">+添加</span>
+                    </MenuItem>
+            </Menu>
+        </Header>
+            <Content><packageList :status="activeKind"></packageList></Content>
+    </Layout>
   </div>
 </template>
 
 <script>
-import content from './content'
+import packageList from './packageList'
 export default {
   name: 'HelloWorld',
   data(){
@@ -20,16 +36,19 @@ export default {
       }
   },
   components:{
-      content
+      packageList
   },
-  props: {
-    msg: String
+  methods: {
+    addOrder(){
+        this.$router.push('/addOrder');
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
 h3 {
   margin: 40px 0 0;
 }
@@ -44,4 +63,9 @@ li {
 a {
   color: #42b983;
 }
+span{
+    border: 1px solid #cccccc;
+    padding:10px;
+}
+
 </style>

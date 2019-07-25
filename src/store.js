@@ -1,19 +1,41 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import axios from 'axios'
 Vue.use(Vuex)
-
 export default new Vuex.Store({
   state: {
     orders:[
-      {id:'12342142314',customerName:'知道',telphone:'123423423',status:1,time:'2019-12-13 21:11:22'}
-    ],
-    count:1
+    ]
   },
   mutations: {
-
+    setOrders(state,orders){
+      state.orders.push(...orders)
+    },
+    updateOrder(state,order){
+      const oldOrder = state.orders.find(o => o.id == order.id);
+      oldOrder.status = order.status;
+    }
   },
   actions: {
-
+    getPackageLists({commit}){
+      axios.get('http://localhost:8090/packages')
+      .then(function (response) {
+        console.log(response.data);
+        commit('setOrders',response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    },
+    updatePackage({commit},id){
+      axios.put('http://localhost:8090/packages/'+id+'?status=1')
+      .then(function (response) {
+        console.log(response.data);
+        commit('updateOrder',response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
   }
 })
