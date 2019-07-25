@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import { async } from 'q';
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
@@ -32,9 +33,10 @@ export default new Vuex.Store({
         console.log(error);
       });
     },
-    updatePackage({commit},id){
-      axios.put('http://localhost:8090/packages/'+id+'?status=1')
+    async updatePackage({commit},id){
+      await axios.put('http://localhost:8090/packages/'+id+'?status=2')
       .then(function (response) {
+        console.log(234)
         console.log(response.data);
         commit('updateOrder',response.data);
       })
@@ -46,7 +48,7 @@ export default new Vuex.Store({
       axios.put('http://localhost:8090/packages/'+order.id+'?orderTime='+order.orderTime)
       .then(function (response) {
         console.log(response.data);
-        // commit('updateOrder',response.data);
+        commit('updateOrder',response.data);
       })
       .catch(function (error) {
         console.log(error);

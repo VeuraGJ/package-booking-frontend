@@ -68,7 +68,7 @@
                                     },
                                     on: {
                                         click: () => {
-                                            this.show(params.index)
+                                            this.confirmOrder(params.row.id)
                                         }
                                     }
                                 }, '确认收货')
@@ -81,11 +81,13 @@
             }
         },
         methods: {
-            show (index) {
-                this.$Modal.info({
-                    title: 'User Info',
-                    content: `Name：${this.data6[index].name}<br>Age：${this.data6[index].age}<br>Address：${this.data6[index].address}`
-                })
+            confirmOrder (index) {
+                console.log(index)
+                this.$store.dispatch('updatePackage',index).then(() => {
+                   this.$Modal.confirm({
+                    content: '<h1>确认收货成功！</h1>'
+                });
+                });
             },
             changeStatus(status){
                 const statusType = ['未预约','已预约','已取件'];
